@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import no.lau.domain.counter.CounterService;
+import no.lau.hello.api.Komposition;
 import no.lau.hello.api.Planet;
 import no.lau.hello.api.Saying;
 import org.constretto.annotation.Configuration;
@@ -41,21 +42,27 @@ public class KompostEditBackendResource {
 
     @Timed
     @GET
-    @ApiOperation("Endpoint that will respond with hello and use the name provided as request parameter if any")
-    public Saying hello(@QueryParam("identity") @ApiParam(defaultValue = "A Planet JSON") Optional<String> name) {
+    @ApiOperation("Endpoint that will respond with kompo and use the name provided as request parameter if any")
+    public Komposition kompo(@QueryParam("identity") @ApiParam(defaultValue = "Komposition JSON") Optional<String> name) {
         log.trace("{} {} {}", v("method", HttpMethod.GET), v("path", KompostEditBackendResource.PATH), kv("name", name.orElse("null")));
         final String value = String.format(template, name.orElse(defaultName));
         log.trace("{}", kv("value", value));
-        Saying saying = new Saying(counterService.next(), value);
-        log.trace("{}", fields(saying));
-        return saying;
+        Komposition kompo = new Komposition();
+        kompo.name="Kurt";
+        kompo.start=1;
+        kompo.end=1000;
+        kompo.addSegment("first", 0, 16);
+        kompo.addSegment("second", 16, 32);
+
+        log.trace("{}", fields(kompo));
+        return kompo;
     }
 
     @Timed
     @POST
     @ApiOperation("Post planetName and yourName and be greeted.")
     @Consumes({"application/json"})
-    public Saying hello(Planet planet) {
+    public Saying kompo(Planet planet) {
         log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompostEditBackendResource.PATH), fields(planet));
         final String value = "Hello " + planet.getYourName() + " on planet " + planet.getPlanetName();
         log.trace("{}", kv("value", value));
