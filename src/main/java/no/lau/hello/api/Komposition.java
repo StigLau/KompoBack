@@ -7,31 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Komposition {
-    private long id;
-
-    public String name;
-    public int start;
-    public int end;
-    private List<Segment> segments = new ArrayList<>();
-
     @JsonProperty
-    public long getId() {
-        return id;
-    }
+    public long id;
+    @JsonProperty
+    public String name;
+    @JsonProperty
+    public int start;
+    @JsonProperty
+    public int end;
+    @JsonProperty
+    public List<Segment> segments;
 
-    @JsonProperty public String getName() {
-        return name;
-    }
-    @JsonProperty public int getStart() {
-        return start;
-    }
-    @JsonProperty public int getEnd() {
-        return end;
-    }
-
-    @JsonProperty List<Segment> getSegments() { return segments; }
-
+    /*
     public void addSegment(String id, int start, int end) {
         this.segments.add(new Segment(id, start, end));
-    }
+}
+     */
 }

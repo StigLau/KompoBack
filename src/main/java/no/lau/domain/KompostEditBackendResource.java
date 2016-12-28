@@ -6,8 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import no.lau.domain.counter.CounterService;
 import no.lau.hello.api.Komposition;
-import no.lau.hello.api.Planet;
-import no.lau.hello.api.Saying;
+import no.lau.hello.api.Segment;
 import org.constretto.annotation.Configuration;
 import org.constretto.annotation.Configure;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.*;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static net.logstash.logback.argument.StructuredArguments.*;
@@ -48,11 +48,12 @@ public class KompostEditBackendResource {
         final String value = String.format(template, name.orElse(defaultName));
         log.trace("{}", kv("value", value));
         Komposition kompo = new Komposition();
-        kompo.name="Kurt";
+        kompo.name="Kurt Bjarne";
         kompo.start=1;
         kompo.end=1000;
-        kompo.addSegment("first", 0, 16);
-        kompo.addSegment("second", 16, 32);
+        kompo.segments = new ArrayList<>();
+        kompo.segments.add(new Segment("first one", 0, 16));
+        kompo.segments.add(new Segment("Second", 16, 32));
 
         log.trace("{}", fields(kompo));
         return kompo;
@@ -60,14 +61,17 @@ public class KompostEditBackendResource {
 
     @Timed
     @POST
-    @ApiOperation("Post planetName and yourName and be greeted.")
+    @ApiOperation("Post komposition and be greeted.")
     @Consumes({"application/json"})
-    public Saying kompo(Planet planet) {
-        log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompostEditBackendResource.PATH), fields(planet));
-        final String value = "Hello " + planet.getYourName() + " on planet " + planet.getPlanetName();
+    public Komposition kompo(Komposition komposition) {
+        log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompostEditBackendResource.PATH), fields(komposition));
+        final String value = "Hello " + komposition.name + " on planet " + komposition.start;
         log.trace("{}", kv("value", value));
+        return komposition;
+        /*
         Saying saying = new Saying(counterService.next(), value);
         log.trace("{}", fields(saying));
         return saying;
+        */
     }
 }
