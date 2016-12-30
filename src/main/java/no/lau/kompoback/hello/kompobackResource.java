@@ -1,8 +1,8 @@
-package no.lau.domain;
+package no.lau.kompoback.hello;
 
-import no.lau.hello.api.Planet;
-import no.lau.hello.api.Saying;
-import no.lau.domain.counter.CounterService;
+import no.lau.kompoback.hello.api.Planet;
+import no.lau.kompoback.hello.api.Saying;
+import no.lau.kompoback.domain.counter.CounterService;
 import java.util.Optional;
 
 import com.codahale.metrics.annotation.Timed;
@@ -14,17 +14,18 @@ import org.constretto.annotation.Configure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
 import static net.logstash.logback.argument.StructuredArguments.*;
 
 @Controller
-@Path(KompoBackResource.PATH)
-@Api(KompoBackResource.PATH)
+@Path(kompobackResource.PATH)
+@Api(kompobackResource.PATH)
 @Produces({"application/json"})
-public class KompoBackResource {
-    private final static Logger log = LoggerFactory.getLogger(KompoBackResource.class);
-    public static final String PATH = "/no/lau/hello";
+public class kompobackResource {
+    private final static Logger log = LoggerFactory.getLogger(kompobackResource.class);
+    public static final String PATH = "/hello";
 
     private final String template;
     private final String defaultName;
@@ -32,18 +33,18 @@ public class KompoBackResource {
     private final CounterService counterService;
 
     @Configure
-    public KompoBackResource(@Configuration String template, @Configuration String defaultName, CounterService counterService) {
+    public kompobackResource(@Configuration String template, @Configuration String defaultName, CounterService counterService) {
         this.template = template;
         this.defaultName = defaultName;
         this.counterService = counterService;
-        log.debug("{} Initialized with {}, {}", KompoBackResource.class.getSimpleName(), kv("template", template), kv("defaultName", defaultName));
+        log.debug("{} Initialized with {}, {}", kompobackResource.class.getSimpleName(), kv("template", template), kv("defaultName", defaultName));
     }
 
     @Timed
     @GET
     @ApiOperation("Endpoint that will respond with hello and use the name provided as request parameter if any")
     public Saying hello(@QueryParam("name") @ApiParam(defaultValue = "Mr. Smith") Optional<String> name) {
-        log.trace("{} {} {}", v("method", HttpMethod.GET), v("path", KompoBackResource.PATH), kv("name", name.orElse("null")));
+        log.trace("{} {} {}", v("method", HttpMethod.GET), v("path", kompobackResource.PATH), kv("name", name.orElse("null")));
         final String value = String.format(template, name.orElse(defaultName));
         log.trace("{}", kv("value", value));
         Saying saying = new Saying(counterService.next(), value);
@@ -56,7 +57,7 @@ public class KompoBackResource {
     @ApiOperation("Post planetName and yourName and be greeted.")
     @Consumes({"application/json"})
     public Saying hello(Planet planet) {
-        log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompoBackResource.PATH), fields(planet));
+        log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", kompobackResource.PATH), fields(planet));
         final String value = "Hello " + planet.getYourName() + " on planet " + planet.getPlanetName();
         log.trace("{}", kv("value", value));
         Saying saying = new Saying(counterService.next(), value);

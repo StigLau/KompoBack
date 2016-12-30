@@ -1,5 +1,4 @@
-
-package no.lau.hello.api;
+package no.lau.kompoback.hello.api;
 
 public class Planet {
     private String planetName;

@@ -1,5 +1,4 @@
-
-package no.lau.hello.api;
+package no.lau.kompoback.hello.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;

@@ -5,16 +5,16 @@ RUN yum -y update
 RUN yum -y install curl
 
 # Install Application
-RUN adduser KompoBack
-ADD target/KompoBack-application-*.jar /home/KompoBack/KompoBack-application.jar"
-ADD docker/KompoBack.yml /home/KompoBack/KompoBack.yml
-RUN chown KompoBack:KompoBack /home/KompoBack/KompoBack.yml
-ADD docker/KompoBack_override.properties /home/KompoBack/KompoBack-override.properties
-RUN chown KompoBack:KompoBack /home/KompoBack/KompoBack.properties
+RUN adduser kompoback
+ADD target/kompoback-application-*.jar /home/kompoback/kompoback-application.jar"
+ADD docker/kompoback.yml /home/kompoback/kompoback.yml
+RUN chown kompoback:kompoback /home/kompoback/kompoback.yml
+ADD docker/kompoback_override.properties /home/kompoback/kompoback-override.properties
+RUN chown kompoback:kompoback /home/kompoback/kompoback.properties
 
 EXPOSE 21500:21599
 
-WORKDIR "/home/KompoBack"
+WORKDIR "/home/kompoback"
 CMD [ \
     "java", \
     "-Xdebug", \
@@ -26,5 +26,5 @@ CMD [ \
     "-Dcom.sun.management.jmxremote.authenticate=false", \
     "-Djava.rmi.server.hostname=localhost", \
     "-jar", \
-    "KompoBack-application.jar" \
+    "kompoback-application.jar" \
 ]

@@ -1,5 +1,5 @@
 server:
-  rootPath: /KompoBack
+  rootPath: /kompoback
   applicationConnectors:
     - type: http
       port: 0
@@ -10,9 +10,9 @@ server:
 logging:
   level: INFO
   loggers:
-    no.lau: TRACE
+    no.lau.kompoback: TRACE
   appenders:
     - type: console
 
 swagger:
-  resourcePackage: no.lau
+  resourcePackage: no.lau.kompoback

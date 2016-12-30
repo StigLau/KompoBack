@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-echo stopping KompoBack
-docker stop KompoBack
-echo removing KompoBack
-docker rm KompoBack
+echo stopping kompoback
+docker stop kompoback
+echo removing kompoback
+docker rm kompoback
 echo list active docker containers
 docker ps

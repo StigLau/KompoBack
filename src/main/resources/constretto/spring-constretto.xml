@@ -1,4 +1,3 @@
-
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:constretto="http://constretto.org/schema/constretto"
@@ -10,8 +9,8 @@
     <constretto:configuration annotation-config="true" property-placeholder="true">
         <constretto:stores>
             <constretto:properties-store>
-                <constretto:resource location="classpath:KompoBack.properties"/>
-                <constretto:resource location="file:KompoBack_override.properties"/>
+                <constretto:resource location="classpath:kompoback.properties"/>
+                <constretto:resource location="file:kompoback_override.properties"/>
             </constretto:properties-store>
         </constretto:stores>
     </constretto:configuration>

@@ -1,6 +1,6 @@
 
 server:
-  rootPath: KompoBack
+  rootPath: kompoback
   applicationConnectors:
     - type: http
       port: 21580
@@ -14,7 +14,7 @@ logging:
   level: INFO
 
   loggers:
-    no.lau: DEBUG
+    no.lau.kompoback: DEBUG
 
 # Logback's Time Based Rolling Policy - archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log.gz
 # Logback's Size and Time Based Rolling Policy -  archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}-%i.log.gz
@@ -33,4 +33,4 @@ logging:
 
 # <a comma separated string of the packages that contain your @Api annotated hello>
 swagger:
-  resourcePackage: no.lau
+  resourcePackage: no.lau.kompoback

@@ -10,7 +10,7 @@
 
     <name>kompoback</name>
     <groupId>no.lau</groupId>
-    <artifactId>kompoback</artifactId>
+    <artifactId>kompoBack</artifactId>
     <version>0.1</version>
 
     <packaging>jar</packaging>
@@ -27,6 +27,7 @@
         <logstash-logback-encoder.version>4.7</logstash-logback-encoder.version>
         <dropwizard-logging-logstash.version>1.1-Alpha-1</dropwizard-logging-logstash.version>
         <dropwizard.version>1.0.2</dropwizard.version>
+        <dropwizard.java8.version>0.9.0-1</dropwizard.java8.version>
         <dropwizard.metrics.version>3.1.2</dropwizard.metrics.version>
         <dropwizard-swagger.version>1.0.0-1</dropwizard-swagger.version>
         <swagger-annotations.version>1.5.4</swagger-annotations.version>
@@ -46,7 +47,6 @@
         <javax.annotation-api.version>1.2</javax.annotation-api.version>
         <aopalliance-repackaged.version>2.4.0-b31</aopalliance-repackaged.version>
         <jsr305.version>3.0.0</jsr305.version>
-        <hystrix.version>1.5.3</hystrix.version>
     </properties>
 
     <repositories>
@@ -84,6 +84,11 @@
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
             <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.modules</groupId>
+            <artifactId>dropwizard-java8</artifactId>
+            <version>${dropwizard.java8.version}</version>
         </dependency>
         <dependency>
             <groupId>io.dropwizard</groupId>
@@ -290,29 +295,6 @@
             <artifactId>dropwizard-lifecycle</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
-        <!--Hystrix  -->
-        <dependency>
-            <groupId>com.github.kevinsawicki</groupId>
-            <artifactId>http-request</artifactId>
-            <version>6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.netflix.hystrix</groupId>
-            <artifactId>hystrix-core</artifactId>
-            <version>${hystrix.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--Dropwizard Hystrix monitor -->
-        <dependency>
-            <groupId>org.zapodot</groupId>
-            <artifactId>hystrix-dropwizard-bundle</artifactId>
-            <version>0.4</version>
-        </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
@@ -424,13 +406,13 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>no.lau.KompoBackApplication</mainClass>
+                                    <mainClass>no.lau.kompoback.kompobackApplication</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>META-INF/no.lau.spring.handlers</resource>
+                                    <resource>META-INF/spring.handlers</resource>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>META-INF/no.lau.spring.schemas</resource>
+                                    <resource>META-INF/spring.schemas</resource>
                                 </transformer>
                             </transformers>
                         </configuration>

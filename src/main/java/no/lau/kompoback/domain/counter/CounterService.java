@@ -1,5 +1,4 @@
-
-package no.lau.domain.counter;
+package no.lau.kompoback.domain.counter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

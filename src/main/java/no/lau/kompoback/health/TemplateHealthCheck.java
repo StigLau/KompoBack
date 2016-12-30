@@ -1,5 +1,4 @@
-
-package no.lau.health;
+package no.lau.kompoback.health;
 
 import com.codahale.metrics.health.HealthCheck;
 import org.constretto.annotation.Configuration;

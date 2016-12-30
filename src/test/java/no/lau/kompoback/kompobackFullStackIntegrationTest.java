@@ -1,10 +1,10 @@
-package no.lau;
+package no.lau.kompoback;
 
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit.DropwizardAppRule;
-import no.lau.domain.KompoBackResource;
-import no.lau.hello.api.Planet;
-import no.lau.hello.api.Saying;
+import no.lau.kompoback.hello.kompobackResource;
+import no.lau.kompoback.hello.api.Planet;
+import no.lau.kompoback.hello.api.Saying;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -15,18 +15,18 @@ import javax.ws.rs.core.Response;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class KompoBackFullStackIntegrationTest {
+public class kompobackFullStackIntegrationTest {
 
     @ClassRule
-    public static final DropwizardAppRule<KompoBackDropwizardConfiguration> RULE =
-            new DropwizardAppRule<>(KompoBackApplication.class, ResourceHelpers.resourceFilePath("KompoBack-test.yml"));
+    public static final DropwizardAppRule<kompobackDropwizardConfiguration> RULE =
+            new DropwizardAppRule<>(kompobackApplication.class, ResourceHelpers.resourceFilePath("kompoback-test.yml"));
 
     @Test
-    public void getKompoBack() {
+    public void getkompoback() {
         Client client = JerseyClientBuilder.createClient();
 
         Response response = client.target(
-                String.format("http://localhost:%d/KompoBack" + KompoBackResource.PATH, RULE.getLocalPort()))
+                String.format("http://localhost:%d/kompoback" + kompobackResource.PATH, RULE.getLocalPort()))
                 .request()
                 .get();
 
@@ -34,11 +34,11 @@ public class KompoBackFullStackIntegrationTest {
     }
 
     @Test
-    public void postKompoBack() {
+    public void postkompoback() {
         Client client = JerseyClientBuilder.createClient();
 
         Response response = client.target(
-                String.format("http://localhost:%d/KompoBack" + KompoBackResource.PATH, RULE.getLocalPort()))
+                String.format("http://localhost:%d/kompoback" + kompobackResource.PATH, RULE.getLocalPort()))
                 .request()
                 .post(Entity.json(new Planet("Neptune", "Bad Santa")));
 

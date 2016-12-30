@@ -1,8 +1,9 @@
-package no.lau;
+package no.lau.kompoback;
 
 import com.codahale.metrics.health.HealthCheck;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.dropwizard.Application;
+import io.dropwizard.java8.Java8Bundle;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.servlets.tasks.Task;
@@ -10,41 +11,42 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
-import no.lau.spring.SpringContextLoaderListener;
+import no.lau.kompoback.spring.SpringContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.ext.Provider;
 import java.util.Map;
 
-public class KompoBackApplication extends Application<KompoBackDropwizardConfiguration> {
+public class kompobackApplication extends Application<kompobackDropwizardConfiguration> {
 
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
-            args = new String[] {"server", "KompoBack.yml"};
+            args = new String[] {"server", "kompoback.yml"};
         }
-        new KompoBackApplication().run(args);
+        new kompobackApplication().run(args);
     }
 
     @Override
     public String getName() {
-        return "KompoBack";
+        return "kompoback";
     }
 
     @Override
-    public void initialize(Bootstrap<KompoBackDropwizardConfiguration> bootstrap) {
+    public void initialize(Bootstrap<kompobackDropwizardConfiguration> bootstrap) {
         bootstrap.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         bootstrap.addBundle(new AssetsBundle("/assets/index.html","/","index.html"));
-        bootstrap.addBundle(new SwaggerBundle<KompoBackDropwizardConfiguration>() {
+        bootstrap.addBundle(new Java8Bundle());
+        bootstrap.addBundle(new SwaggerBundle<kompobackDropwizardConfiguration>() {
             @Override
-            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(KompoBackDropwizardConfiguration configuration) {
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(kompobackDropwizardConfiguration configuration) {
                 return configuration.swaggerBundleConfiguration;
             }
         });
     }
 
     @Override
-    public void run(KompoBackDropwizardConfiguration configuration,
+    public void run(kompobackDropwizardConfiguration configuration,
                     Environment environment) {
         AnnotationConfigWebApplicationContext parent = createSpringParentContext(configuration);
         AnnotationConfigWebApplicationContext ctx = createSpringContext(parent);
@@ -56,7 +58,7 @@ public class KompoBackApplication extends Application<KompoBackDropwizardConfigu
         addProviders(environment, ctx);
     }
 
-    private AnnotationConfigWebApplicationContext createSpringParentContext(KompoBackDropwizardConfiguration configuration) {
+    private AnnotationConfigWebApplicationContext createSpringParentContext(kompobackDropwizardConfiguration configuration) {
         AnnotationConfigWebApplicationContext parent = new AnnotationConfigWebApplicationContext();
         parent.refresh();
         parent.getBeanFactory().registerSingleton("configuration", configuration);
@@ -68,7 +70,7 @@ public class KompoBackApplication extends Application<KompoBackDropwizardConfigu
     private AnnotationConfigWebApplicationContext createSpringContext(AnnotationConfigWebApplicationContext parent) {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.setParent(parent);
-        ctx.register(KompoBackSpringConfiguration.class);
+        ctx.register(kompobackSpringConfiguration.class);
         ctx.refresh();
         ctx.registerShutdownHook();
         ctx.start();

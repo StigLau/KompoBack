@@ -1,4 +1,4 @@
-package no.lau.managed;
+package no.lau.kompoback.managed;
 
 import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;

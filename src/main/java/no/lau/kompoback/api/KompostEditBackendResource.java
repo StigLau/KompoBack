@@ -1,12 +1,12 @@
-package no.lau.domain;
+package no.lau.kompoback.api;
 
 import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import no.lau.domain.counter.CounterService;
-import no.lau.hello.api.Komposition;
-import no.lau.hello.api.Segment;
+import no.lau.kompoback.domain.Komposition;
+import no.lau.kompoback.domain.Segment;
+import no.lau.kompoback.domain.counter.CounterService;
 import org.constretto.annotation.Configuration;
 import org.constretto.annotation.Configure;
 import org.slf4j.Logger;
