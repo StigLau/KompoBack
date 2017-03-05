@@ -50,8 +50,6 @@ public class KompostEditBackendResource {
         log.info("{}", kv("value", value));
         Komposition kompo = new Komposition();
         kompo.name="Kurt Bjarne";
-        kompo.start=1;
-        kompo.end=1000;
         kompo.segments = new ArrayList<>();
         kompo.segments.add(new Segment("first one", 0, 16));
         kompo.segments.add(new Segment("Second", 16, 32));
@@ -66,7 +64,10 @@ public class KompostEditBackendResource {
     @Consumes({"application/json"})
     public Saying kompo(Komposition komposition) {
         log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompostEditBackendResource.PATH), fields(komposition));
-        final String value = "Komposition " + komposition.name + " " + komposition.start + " - " + komposition.end;
+        String value = "\nKomposition: " + komposition.name;
+        for (Segment segment : komposition.segments) {
+            value += "\nSegment: " + segment.id + "- " + segment.end;
+        }
         log.info("{}", kv("value ost", value));
 
         Saying saying = new Saying(counterService.next(), value);

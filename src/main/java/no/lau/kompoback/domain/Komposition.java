@@ -10,10 +10,6 @@ public class Komposition {
     @JsonProperty
     public String name;
     @JsonProperty
-    public int start;
-    @JsonProperty
-    public int end;
-    @JsonProperty
     public List<Segment> segments;
 
     /*

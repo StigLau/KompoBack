@@ -42,8 +42,6 @@ public class kompobackFullStackIntegrationTest {
 
         Komposition komposition = new Komposition();
         komposition.name = "KompoName";
-        komposition.start = 0;
-        komposition.end = 16;
 
         String postUrl = String.format("http://localhost:%d/kompoback" + KompostEditBackendResource.PATH, RULE.getLocalPort());
         Response response = client.target(
