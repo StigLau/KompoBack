@@ -44,9 +44,9 @@ public class KompostEditBackendResource {
     @Timed
     @GET
     @ApiOperation("Endpoint that will respond with kompo and use the name provided as request parameter if any")
-    public Komposition kompo(@QueryParam("identity") @ApiParam(defaultValue = "Komposition JSON") Optional<String> name) {
-        log.trace("{} {} {}", v("method", HttpMethod.GET), v("path", KompostEditBackendResource.PATH), kv("name", name.orElse("null")));
-        final String value = String.format(template, name.orElse(defaultName));
+    public Komposition kompo(@QueryParam("identity") @ApiParam(defaultValue = "Komposition JSON") Optional<String> identity) {
+        log.trace("{} {} {}", v("method", HttpMethod.GET), v("path", KompostEditBackendResource.PATH), kv("name", identity.orElse("null")));
+        final String value = String.format(template, identity.orElse(defaultName));
         log.info("{}", kv("value", value));
         Komposition kompo = new Komposition();
         kompo.name="Kurt Bjarne";
