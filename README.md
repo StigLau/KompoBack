@@ -1,5 +1,6 @@
 # kompoback
 A runnable microservice devops-ready java application built on DropWizard, Spring IoC, and more
+Backend for kompostedit
 
 ```
 mvn install
