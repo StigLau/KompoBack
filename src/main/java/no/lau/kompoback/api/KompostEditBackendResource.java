@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiParam;
 import no.lau.kompoback.domain.Komposition;
 import no.lau.kompoback.domain.Segment;
 import no.lau.kompoback.domain.counter.CounterService;
+import no.lau.kompoback.hello.api.Saying;
 import org.constretto.annotation.Configuration;
 import org.constretto.annotation.Configure;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class KompostEditBackendResource {
     public Komposition kompo(@QueryParam("identity") @ApiParam(defaultValue = "Komposition JSON") Optional<String> name) {
         log.trace("{} {} {}", v("method", HttpMethod.GET), v("path", KompostEditBackendResource.PATH), kv("name", name.orElse("null")));
         final String value = String.format(template, name.orElse(defaultName));
-        log.trace("{}", kv("value", value));
+        log.info("{}", kv("value", value));
         Komposition kompo = new Komposition();
         kompo.name="Kurt Bjarne";
         kompo.start=1;
@@ -63,15 +64,13 @@ public class KompostEditBackendResource {
     @POST
     @ApiOperation("Post komposition and be greeted.")
     @Consumes({"application/json"})
-    public Komposition kompo(Komposition komposition) {
+    public Saying kompo(Komposition komposition) {
         log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompostEditBackendResource.PATH), fields(komposition));
-        final String value = "Hello " + komposition.name + " on planet " + komposition.start;
-        log.trace("{}", kv("value", value));
-        return komposition;
-        /*
+        final String value = "Komposition " + komposition.name + " " + komposition.start + " - " + komposition.end;
+        log.info("{}", kv("value ost", value));
+
         Saying saying = new Saying(counterService.next(), value);
         log.trace("{}", fields(saying));
         return saying;
-        */
     }
 }
