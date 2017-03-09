@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class Komposition {
-    @JsonProperty
-    public long id;
+    //@JsonProperty
+    //public long id; //Not in use yet
     @JsonProperty
     public String name;
     @JsonProperty

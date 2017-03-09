@@ -62,7 +62,7 @@ public class KompostEditBackendResource {
     @POST
     @ApiOperation("Post komposition and be greeted.")
     @Consumes({"application/json"})
-    public Saying kompo(Komposition komposition) {
+    public Komposition kompo(Komposition komposition) {
         log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompostEditBackendResource.PATH), fields(komposition));
         String value = "\nKomposition: " + komposition.name;
         for (Segment segment : komposition.segments) {
@@ -72,6 +72,7 @@ public class KompostEditBackendResource {
 
         Saying saying = new Saying(counterService.next(), value);
         log.trace("{}", fields(saying));
-        return saying;
+        //komposition.id = komposition.hashCode();//Perhaps set the ID on the serverside
+        return komposition;
     }
 }
