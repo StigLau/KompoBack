@@ -11,6 +11,8 @@ public class Komposition {
     public String name;
     @JsonProperty
     public List<Segment> segments;
+    @JsonProperty
+    public MediaFile mediaFile;
 
     /*
     public void addSegment(String id, int start, int end) {

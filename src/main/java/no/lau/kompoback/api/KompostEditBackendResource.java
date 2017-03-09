@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import no.lau.kompoback.domain.Komposition;
+import no.lau.kompoback.domain.MediaFile;
 import no.lau.kompoback.domain.Segment;
 import no.lau.kompoback.domain.counter.CounterService;
 import no.lau.kompoback.hello.api.Saying;
@@ -48,13 +49,22 @@ public class KompostEditBackendResource {
         log.trace("{} {} {}", v("method", HttpMethod.GET), v("path", KompostEditBackendResource.PATH), kv("name", identity.orElse("null")));
         final String value = String.format(template, identity.orElse(defaultName));
         log.info("{}", kv("value", value));
+        Komposition kompo = createTestKomposition();
+        log.trace("{}", fields(kompo));
+        return kompo;
+    }
+
+    private Komposition createTestKomposition() {
         Komposition kompo = new Komposition();
         kompo.name="Kurt Bjarne";
         kompo.segments = new ArrayList<>();
         kompo.segments.add(new Segment("first one", 0, 16));
         kompo.segments.add(new Segment("Second", 16, 32));
 
-        log.trace("{}", fields(kompo));
+        kompo.mediaFile = new MediaFile();
+        kompo.mediaFile.fileName = "myFilename";
+        kompo.mediaFile.checksum = "checksum";
+        kompo.mediaFile.startingOffset = 1123412;
         return kompo;
     }
 
@@ -64,6 +74,10 @@ public class KompostEditBackendResource {
     @Consumes({"application/json"})
     public Komposition kompo(Komposition komposition) {
         log.trace("{} {} {}", v("method", HttpMethod.POST), v("path", KompostEditBackendResource.PATH), fields(komposition));
+        if(komposition == null) {
+            log.warn("Did not find anything in the input");
+            return createTestKomposition();
+        }
         String value = "\nKomposition: " + komposition.name;
         for (Segment segment : komposition.segments) {
             value += "\nSegment: " + segment.id + "- " + segment.end;
